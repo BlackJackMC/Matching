@@ -1,14 +1,26 @@
 const express = require("express");
-const http = require("http");
+const db = require("./config/db");
+const router = require("./routes");
+const cors = require("cors");
 
 const app = express();
-const server = http.createServer(app);
 
 const PORT = process.env.PORT || 5000;
 
-const startup = () => {
+// Wild
+const cors_options = {
+	origin: "*",
+	methods: ["GET", "POST"],
+	credentials: true,
+};
+
+app.use(express.json());
+app.use(cors(cors_options));
+app.use(router);
+
+const startup = async () => {
+	await db.connect();
 	console.log(`Server is listening on port ${PORT}`);
 };
 
-server.listen(PORT, startup);
-
+app.listen(PORT, startup);
