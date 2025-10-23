@@ -16,7 +16,8 @@ Wanna find a buddy to study with? Matching is here to help you. (A project for G
     - Creator
     - Subject
     - Location
-1. User can receive and accept/decline invitation via email
+1. User can receive and accept/decline invitation
+1. User can end study session
 
 ## Use cases
 
@@ -57,8 +58,10 @@ Wanna find a buddy to study with? Matching is here to help you. (A project for G
         1. User presses New session on home page
         1. A pop-up appears requiring the user to fill all necessary informations
         1. User presses Create new study session
+        1. Backend marks user is busy at the time of study session
     -   **Exception**:
         -   Backend does not respond
+        -   User is not free at the time of the study session
 -   View list of users
     -   **Precondition**: user has logged in and in a study session
     -   **Trigger**: user navigates to a specific study session page
@@ -83,6 +86,45 @@ Wanna find a buddy to study with? Matching is here to help you. (A project for G
     -   **Exception**:
         -   Invited does not exist anymore
         -   Backend returns invalid data
+-   View invitations
+    -   **Precondition**: user has logged in
+    -   **Trigger**: user navigates to Invitation page
+    -   **Scenario**:
+        1. Backend responses with a ranked list of valid invitation
+    -   **Exception**:
+        -   There is no invitation
+-   Response to an invitation:
+    -   **Precondition**: user has logged in, in Invitation page (with invitation list)
+    -   **Trigger**: user presses accept/decline
+    -   **Scenario**:
+        1. Backend notifies the owner of the invitation
+        1. If accept, backend adds user to the study session and marks user is busy at the time frame of the study session
+    -   **Exception**:
+        -   Session has ended before user response
+-   End study session without any user
+    -   **Precondition**: user has logged in, in a study session
+    -   **Trigger**: user press End session
+    -   **Scenario**:
+        1. Backend marks session as completed
+    -   **Exception**
+-   End study session with another user, both agree
+    -   **Precondition**: user has logged in, in a study session, another user has joined it
+    -   **Trigger**: one of the user press End session
+    -   **Scenario**:
+        1. A pop-up appears prompting the user to agree to end the session
+        1. If both users agree, the session ends
+        1. System marks the session as completed
+        1. System asks both users to rate their experience (with platform, with partners)
+    -   **Exception**
+-   End study session with another user, one deny
+    -   **Precondition**: user has logged in, in a study session, another user has joined it
+    -   **Trigger**: one of the user press End session
+    -   **Scenario**:
+        1. A pop-up appears prompting the user to agree to end the session
+        1. One user deny, the other will be offered to end the session alone
+        1. That user will be removed from the session
+        1. System asks that user to rate their experience (with platform, with partners)
+    -   **Exception**
 
 ## Data schema
 
