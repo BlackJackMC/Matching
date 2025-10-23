@@ -1,0 +1,19 @@
+{
+    "name": "Monorepo Dev Environment",
+    "image": "node:lts-bullseye",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-vsliveshare.vsliveshare",
+                "ritwickdey.LiveServer",
+                "ms-azuretools.vscode-docker",
+                "ms-vscode-remote.remote-containers",
+                "ms-azuretools.vscode-containers",
+                "esbenp.prettier-vscode",
+                "mongodb.mongodb-vscode",
+                "dbaeumer.vscode-eslint"
+            ]
+        }
+    },
+    "remoteUser": "node"
+}
